@@ -6,7 +6,7 @@ import CardBody from './CardBody';
 
 
 export default function CardsList({items}) {
-  const listItems = items.map((o, index) => (
+  const cards = items.map((o, index) => (
     <Card key={index}>
       {o.image ? <Image src={o.image.src} alt={o.image.alt} /> : null}
       <CardBody title={o.title} text={o.text} url={o.url} btnText={o.btnText} />
@@ -15,11 +15,20 @@ export default function CardsList({items}) {
 
   return (
     <div className="cards">
-      {listItems}
+      {cards}
     </div>
   )
 }
 
 CardsList.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object)
+  items: PropTypes.arrayOf(PropTypes.shape({
+    image: PropTypes.shape({
+      src: PropTypes.string.isRequired,
+      alt: PropTypes.string,
+    }),
+    title: PropTypes.string,
+    text: PropTypes.string,
+    url: PropTypes.string,
+    btnText: PropTypes.string,
+  })).isRequired
 }
